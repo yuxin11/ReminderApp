@@ -23,7 +23,7 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/title_height"
         android:id="@+id/alert_title"
-        android:hint="name"
+        android:hint="title"
         android:gravity="start"
         android:layout_gravity="top"
         android:inputType="textPersonName"

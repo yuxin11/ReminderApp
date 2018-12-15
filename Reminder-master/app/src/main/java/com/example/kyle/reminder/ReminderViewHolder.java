@@ -10,14 +10,13 @@ import com.bignerdranch.android.multiselector.MultiSelector;
 import com.bignerdranch.android.multiselector.SwappingHolder;
 
 
-public class ReminderViewHolder extends SwappingHolder implements
-                                                       View.OnClickListener,
-                                                       View.OnLongClickListener {
+public class ReminderViewHolder extends SwappingHolder implements View.OnClickListener,View.OnLongClickListener {
   private TextView mTitle;
   private TextView mContent;
   private TextView mTime;
   private ImageView mIcon;
   private CardView mCardView;
+  private TextView mFinishFlag;
 
   interface OnClickListener {
     void onClick(ReminderViewHolder holder);
@@ -40,10 +39,21 @@ public class ReminderViewHolder extends SwappingHolder implements
     mTime = view.findViewById(R.id.timeLabel);
     mIcon = view.findViewById(R.id.icon);
     mCardView = view.findViewById(R.id.card_view);
+    mFinishFlag=view.findViewById(R.id.flag);
 
     setSelectionModeBackgroundDrawable(null);
     setSelectionModeStateListAnimator(null);
   }
+  public void setFlag(String flag) {
+    if (flag.contains("已完成")){
+      mFinishFlag.setVisibility(View.VISIBLE);
+    }
+    else{
+      mFinishFlag.setVisibility(View.GONE);
+    }
+
+  }
+
 
   public void setTitle(String title) {
     mTitle.setText(title);

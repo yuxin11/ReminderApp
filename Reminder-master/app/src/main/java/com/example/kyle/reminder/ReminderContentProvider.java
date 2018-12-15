@@ -171,10 +171,7 @@ public class ReminderContentProvider extends ContentProvider {
 
     switch (URI_MATCHER.match(uri)) {
       case NOTE:
-        delCount = db.delete(
-                ReminderContract.Notes.TABLE_NAME,
-                selection,
-                selectionArgs);
+        delCount = db.delete(ReminderContract.Notes.TABLE_NAME, selection, selectionArgs);
         break;
       case NOTE_ID:
         id = uri.getLastPathSegment();
@@ -182,16 +179,10 @@ public class ReminderContentProvider extends ContentProvider {
         if (!TextUtils.isEmpty(selection)) {
           where += " AND " + selection;
         }
-        delCount = db.delete(
-                ReminderContract.Notes.TABLE_NAME,
-                where,
-                selectionArgs);
+        delCount = db.delete(ReminderContract.Notes.TABLE_NAME, where, selectionArgs);
         break;
       case ALERT:
-        delCount = db.delete(
-                ReminderContract.Alerts.TABLE_NAME,
-                selection,
-                selectionArgs);
+        delCount = db.delete(ReminderContract.Alerts.TABLE_NAME, selection, selectionArgs);
         break;
       case ALERT_ID:
         id = uri.getLastPathSegment();
@@ -220,11 +211,7 @@ public class ReminderContentProvider extends ContentProvider {
     String id, where;
     switch (URI_MATCHER.match(uri)) {
       case NOTE:
-        updateCount = db.update(
-                ReminderContract.Notes.TABLE_NAME,
-                values,
-                selection,
-                selectionArgs);
+        updateCount = db.update(ReminderContract.Notes.TABLE_NAME, values, selection, selectionArgs);
         break;
       case NOTE_ID:
         id = uri.getLastPathSegment();
@@ -232,18 +219,10 @@ public class ReminderContentProvider extends ContentProvider {
         if (!TextUtils.isEmpty(selection)) {
           where += " AND " + selection;
         }
-        updateCount = db.update(
-                ReminderContract.Notes.TABLE_NAME,
-                values,
-                where,
-                selectionArgs);
+        updateCount = db.update(ReminderContract.Notes.TABLE_NAME, values, where, selectionArgs);
         break;
       case ALERT:
-        updateCount = db.update(
-                ReminderContract.Notes.TABLE_NAME,
-                values,
-                selection,
-                selectionArgs);
+        updateCount = db.update(ReminderContract.Notes.TABLE_NAME, values, selection, selectionArgs);
         break;
       case ALERT_ID:
         id = uri.getLastPathSegment();
@@ -251,11 +230,7 @@ public class ReminderContentProvider extends ContentProvider {
         if (!TextUtils.isEmpty(selection)) {
           where += " AND " + selection;
         }
-        updateCount = db.update(
-                ReminderContract.Alerts.TABLE_NAME,
-                values,
-                where,
-                selectionArgs);
+        updateCount = db.update(ReminderContract.Alerts.TABLE_NAME, values, where, selectionArgs);
         break;
       default:
         throw new IllegalArgumentException("Unsupported URI: " + uri);

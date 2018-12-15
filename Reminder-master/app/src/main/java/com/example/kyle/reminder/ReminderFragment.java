@@ -3,6 +3,7 @@ package com.example.kyle.reminder;
 import android.app.Activity;
 import android.content.ContentResolver;
 import android.content.ContentUris;
+import android.content.ContentValues;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -20,6 +21,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.view.ActionMode;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -53,6 +55,7 @@ public class ReminderFragment extends Fragment implements
   private List<ReminderItem> mReminderItems;
   private ReminderViewHolder.OnClickListener mOnItemClickListener;
   private ReminderViewHolder.OnLongClickListener mOnItemLongClickListener;
+  private ReminderItem item;
 
   public interface EditListener {
     void startEditActivity(RecyclerView.ViewHolder holder);
@@ -103,7 +106,7 @@ public class ReminderFragment extends Fragment implements
         }
 
         int position = holder.getAdapterPosition();
-        ReminderItem item = mAdapter.getItemAtPosition(position);
+        item = mAdapter.getItemAtPosition(position);
         Intent intent = null;
         if (item.getType().equals(ReminderType.ALERT)) {
           intent = new Intent(getContext(), CreateOrEditAlert.class);
@@ -137,15 +140,21 @@ public class ReminderFragment extends Fragment implements
         if (getActivity() == null || mMultiSelector == null) {
           return false;
         }
+      // holder.getItemId()
+        int position = holder.getAdapterPosition();
+        item = mAdapter.getItemAtPosition(position);
+        Log.i("text","long");
+        createCheckDialog(item).show();
 
-        if (!mMultiSelector.isSelectable()) {
-          mActionMode = ((AppCompatActivity) getActivity())
-              .startSupportActionMode(mActionModeCallBack);
-          mMultiSelector.setSelectable(true);
-          mMultiSelector.setSelected(holder, true);
-          mAdapter.notifyItemChanged(holder.getAdapterPosition());
-          return true;
-        }
+
+//        if (!mMultiSelector.isSelectable()) {
+//          mActionMode = ((AppCompatActivity) getActivity())
+//              .startSupportActionMode(mActionModeCallBack);
+//          mMultiSelector.setSelectable(true);
+//          mMultiSelector.setSelected(holder, true);
+//          mAdapter.notifyItemChanged(holder.getAdapterPosition());
+//          return true;
+//        }
         return false;
       }
     };
@@ -156,7 +165,34 @@ public class ReminderFragment extends Fragment implements
     mReminderItems = new ArrayList<>();
     getLoaderManager().initLoader(0, null, this);
   }
+  private AlertDialog createCheckDialog(final ReminderItem item) {
+    return new AlertDialog.Builder(getContext())
+            .setTitle("confirm")
+            .setMessage("finished?")
+            .setPositiveButton("yes", new DialogInterface.OnClickListener() {
+              public void onClick(DialogInterface dialog, int i) {
 
+
+               ContentResolver mContentResolver = getContext().getContentResolver();
+                ContentValues values = new ContentValues();
+                values.put(ReminderContract.Alerts.TITLE, item.getTitle()+"----------------（Finish）");
+               // values.put(ReminderContract.Alerts.CONTENT, item);
+                // values.put(ReminderContract.Alerts.TIME, item.getTimeInMillis());
+                // values.put(ReminderContract.Alerts.FREQUENCY, item.getFrequency());
+               Uri uri = ContentUris.withAppendedId(ReminderContract.Alerts.CONTENT_URI,  item.getId());
+                mContentResolver.update(uri, values, null, null);
+
+                dialog.dismiss();
+              }
+            })
+            .setNegativeButton("no", new DialogInterface.OnClickListener() {
+              public void onClick(DialogInterface dialog, int i) {
+
+                dialog.dismiss();
+              }
+            })
+            .create();
+  }
   @Override
   public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                            Bundle savedInstanceState) {
@@ -204,7 +240,7 @@ public class ReminderFragment extends Fragment implements
   private AlertDialog deleteDialog(final ActionMode actionMode) {
     return new AlertDialog.Builder(getContext())
         .setTitle("confirm")
-        .setMessage("delete")
+        .setMessage("delete?")
         .setPositiveButton("yes", new DialogInterface.OnClickListener() {
           public void onClick(DialogInterface dialog, int i) {
             deleteSelected();

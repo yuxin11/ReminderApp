@@ -14,12 +14,13 @@ import android.net.Uri;
 import android.support.v4.app.NotificationCompat;
 import android.support.v4.app.TaskStackBuilder;
 import android.support.v4.content.WakefulBroadcastReceiver;
+import android.util.Log;
 
 import java.util.Calendar;
 
 
 public class AlarmReceiver extends WakefulBroadcastReceiver {
-
+  private ContentResolver mContentResolver;
   private static final int HOURLY = 1, DAILY = 2, WEEKLY = 3, MONTHLY = 4, YEARLY = 5;
 
   @Override
@@ -49,7 +50,7 @@ public class AlarmReceiver extends WakefulBroadcastReceiver {
     Calendar time = Calendar.getInstance();
     time.setTimeInMillis(cursor.getLong(cursor.getColumnIndex(ReminderParams.TIME)));
     cursor.close();
-
+   // Log.i("text",frequency+"");
     if (frequency > 0) {
       if (frequency == HOURLY) {
         time.add(Calendar.HOUR, 1);
@@ -107,7 +108,14 @@ public class AlarmReceiver extends WakefulBroadcastReceiver {
     NotificationManager notificationManager = (NotificationManager)
             context.getSystemService(Context.NOTIFICATION_SERVICE);
     notificationManager.notify(id, n);
-
+    mContentResolver = context.getContentResolver();
+    ContentValues values = new ContentValues();
+    values.put(ReminderContract.Alerts.TITLE, title+"------------（Finish）");
+    values.put(ReminderContract.Alerts.CONTENT, msg);
+   // values.put(ReminderContract.Alerts.TIME, item.getTimeInMillis());
+   // values.put(ReminderContract.Alerts.FREQUENCY, item.getFrequency());
+   uri = ContentUris.withAppendedId(ReminderContract.Alerts.CONTENT_URI, id);
+    mContentResolver.update(uri, values, null, null);
 
   }
 

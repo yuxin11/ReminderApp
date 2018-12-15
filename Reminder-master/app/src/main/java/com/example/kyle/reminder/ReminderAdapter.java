@@ -49,6 +49,10 @@ public class ReminderAdapter extends RecyclerView.Adapter<ReminderViewHolder> {
       viewHolder.setTimeLabel(null);
       viewHolder.setIcon(0);
     }
+   // if (item.getTitle().equals(("done"))){
+      viewHolder.setTitle(item.getTitle());
+    //}
+  // viewHolder.setFlag(item.getTitle());
     viewHolder.setTitle(item.getTitle());
     viewHolder.setContent(item.getContent());
     viewHolder.setOnClickListener(mOnClickListener);

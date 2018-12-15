@@ -44,9 +44,9 @@ public class CreateOrEditAlert extends AppCompatActivity {
   private ContentResolver mContentResolver;
   private ReminderItem mData;
 
-  private static final String NONE = "none";
+  private static final String NONE = "never";
   private static final String HOURLY = "hourly";
-  private static final String DAILY = "daily";
+  private static final String DAILY = "everday";
 
 
   private static final String[] REPEAT_MODES =
@@ -109,7 +109,7 @@ public class CreateOrEditAlert extends AppCompatActivity {
 
       mData.setTimeInMillis(current.getTimeInMillis());
       mData.setFrequency(mRepeatMode);
-      setActionBarTitle(actionBar, "add item");
+      setActionBarTitle(actionBar, "add events");
     }
 
     mAlarmTime.put(ITEM_TITLE, TIME_SETTING);
@@ -235,7 +235,7 @@ public class CreateOrEditAlert extends AppCompatActivity {
   private AlertDialog createDeleteDialog(final ReminderItem item) {
     return new AlertDialog.Builder(this)
             .setTitle("confirm")
-            .setMessage("delete")
+            .setMessage("delete?")
             .setPositiveButton("yes", new DialogInterface.OnClickListener() {
               public void onClick(DialogInterface dialog, int i) {
                 deleteAlert(item);

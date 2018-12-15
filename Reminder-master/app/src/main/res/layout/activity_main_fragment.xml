@@ -51,7 +51,7 @@
                     android:layout_height="wrap_content"
                     android:src="@drawable/ic_add_alert_white_24dp"
                     fab:fab_size="normal"
-                    fab:fab_label="add item"
+                    fab:fab_label="add events"
                     fab:fab_colorNormal="@color/FABNormal"
                     fab:fab_colorPressed="@color/FABNormal"
                     fab:fab_colorRipple="@color/FABRipple"/>
