@@ -1,0 +1,36 @@
+<resources>
+    <string name="app_name">提醒</string>
+    <string name="title_hint">主题</string>
+    <string name="reminder_hint">请输入内容</string>
+    <string name="delete">Delete</string>
+    <string name="empty">No items.</string>
+    <string name="drawer_open">Open navigation drawer</string>
+    <string name="drawer_close">Close navigation drawer</string>
+
+    <!-- Navigation drawer menu labels -->
+    <string name="nav_home">主页</string>
+    <string name="nav_alerts">提醒</string>
+
+
+    <!-- FAB labels -->
+
+    <string name="fab_add_alert">新建提醒</string>
+
+    <!-- Action bar titles -->
+    <string name="action_bar_create_alert">新建提醒</string>
+    <string name="action_bar_edit_alert">Edit Alert</string>
+    <string name="action_bar_create_note">Create Note</string>
+    <string name="action_bar_edit_note">Edit Note</string>
+
+    <!-- Dialog strings -->
+    <string name="confirm">确认</string>
+    <string name="yes">是</string>
+    <string name="no">否</string>
+    <string name="ok">Ok</string>
+    <string name="cancel">Cancel</string>
+    <string name="save_prompt">确认保存?</string>
+    <string name="delete_prompt">确认删除?</string>
+    <string name="repeat">重复</string>
+
+
+</resources>
